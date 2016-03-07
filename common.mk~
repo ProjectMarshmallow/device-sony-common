@@ -90,14 +90,20 @@ PRODUCT_PACKAGES += \
     libqdutils \
     libqdMetaData
 
-# OMX
+#OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
+    libdashplayer \
+    libdivxdrmdecrypt \
     libstagefrighthw \
     libOmxCore \
     libmm-omxcore \
     libOmxVdec \
     libOmxVdecHevc \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
     libOmxVenc
 
 # GPS

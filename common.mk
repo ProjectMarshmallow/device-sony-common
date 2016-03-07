@@ -134,7 +134,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     timekeep \
     TimeKeep \
-    thermanager \
     macaddrsetup
 
 # QCOM OSS
