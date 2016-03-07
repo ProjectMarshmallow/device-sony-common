@@ -316,12 +316,6 @@ service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     user camera
     group camera system inet input graphics
 
-# QCOM sensors
-service sensors /system/vendor/bin/sensors.qcom
-    class main
-    user root
-    group root
-
 # QCOM Secure
 service qseecomd /system/vendor/bin/qseecomd
     class core
