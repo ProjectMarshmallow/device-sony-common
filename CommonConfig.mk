@@ -72,8 +72,10 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 
-BUILD_KERNEL := true
--include vendor/sony/kernel/KernelConfig.mk
+BOARD_CHARGER_DISABLE_INIT_BLANK := true
+BOARD_HEALTHD_CUSTOM_CHARGER_RES := device/sony/sony_common/animations
+
+include device/sony/sony_common/BoardConfigCommon.mk
 
 # Include build helpers for QCOM proprietary
 -include vendor/qcom/proprietary/common/build/proprietary-build.mk

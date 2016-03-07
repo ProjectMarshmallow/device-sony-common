@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PRODUCT_VENDOR_KERNEL_HEADERS := device/sony/common/kernel-headers
-
 TARGET_NO_RADIOIMAGE := true
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RECOVERY := false
@@ -74,8 +72,10 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 
-BUILD_KERNEL := true
--include vendor/sony/kernel/KernelConfig.mk
+BOARD_CHARGER_DISABLE_INIT_BLANK := true
+BOARD_HEALTHD_CUSTOM_CHARGER_RES := device/sony/common/animations
+
+include device/sony/common/BoardConfigCommon.mk
 
 # Include build helpers for QCOM proprietary
 -include vendor/qcom/proprietary/common/build/proprietary-build.mk
