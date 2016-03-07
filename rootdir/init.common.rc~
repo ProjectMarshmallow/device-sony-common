@@ -139,7 +139,7 @@ on post-fs-data
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc
 
-    chown system /dev/block/platform/soc.0/by-name
+    chown system /dev/block/bootdevice/by-name
 
     setprop vold.post_fs_data_done 1
 
