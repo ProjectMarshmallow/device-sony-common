@@ -77,6 +77,13 @@ BOARD_HEALTHD_CUSTOM_CHARGER_RES := device/sony/sony_common/animations
 
 include device/sony/sony_common/BoardConfigCommon.mk
 
+# Qualcomm support
+BOARD_USES_QC_TIME_SERVICES := true
+ifneq ($(QCPATH),)
+BOARD_USES_QCNE := true
+endif
+BOARD_USES_QCOM_HARDWARE := true
+
 # Include build helpers for QCOM proprietary
 -include vendor/qcom/proprietary/common/build/proprietary-build.mk
 
