@@ -87,6 +87,9 @@ on post-fs-data
     mkdir /dev/socket/scd 0755 system system
     mkdir /data/scd 0755 system system
 
+    # Create a dir for pin-cache component
+    mkdir /cache/pc 0770 radio system
+
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
     mkdir /data/fpc 0700 system system
