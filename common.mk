@@ -140,6 +140,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
    librmnetctl
 
+# Power
+PRODUCT_PACKAGES += \
+   power.tulip
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images

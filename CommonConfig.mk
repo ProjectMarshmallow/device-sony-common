@@ -18,10 +18,8 @@ TARGET_NO_RECOVERY := false
 TARGET_NO_KERNEL := false
 
 # common cmdline parameters
-BOARD_KERNEL_CMDLINE += user_debug=31 androidboot.selinux=permissive
-BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x3F ehci-hcd.park=3
-BOARD_KERNEL_CMDLINE += dwc3.maximum_speed=high dwc3_msm.prop_chg_detect=Y
-BOARD_KERNEL_CMDLINE += coherent_pool=8M
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x237 ehci-hcd.park=3
 
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -50,9 +48,6 @@ BOARD_QTI_CAMERA_V2 := true
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
 TARGET_NO_RPC := true
-
-# PowerHAL
-TARGET_POWERHAL_VARIANT := qcom
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
