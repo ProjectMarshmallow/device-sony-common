@@ -123,16 +123,12 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
-# Camera wrapper
-PRODUCT_PACKAGES += \
-    camera.qcom
-
 # CAMERA
-#PRODUCT_PACKAGES += \
-#    libmmcamera_interface \
-#    libmmjpeg_interface \
-#    libmm-qcamera \
-#    libqomx_core
+PRODUCT_PACKAGES += \
+    libmmcamera_interface \
+    libmmjpeg_interface \
+    libmm-qcamera \
+    libqomx_core
 
 # OSS
 PRODUCT_PACKAGES += \
