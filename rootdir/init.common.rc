@@ -363,10 +363,8 @@ service thermanager /system/bin/thermanager /system/etc/thermanager.xml
     group root
 
 # Offline charger
-service charger /sbin/healthd -c
+service charger /sbin/charger
     class charger
-    critical
-    seclabel u:r:healthd:s0
 
 # OSS time
 service timekeep /system/bin/timekeep restore
