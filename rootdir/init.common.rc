@@ -154,6 +154,15 @@ on charger
     # Booting modem
     wait /dev/block/platform/soc.0/by-name/system
     mount ext4 /dev/block/platform/soc.0/by-name/system /system ro barrier=1
+    chown root system /sys/class/power_supply/bms/current_now
+    chown root system /sys/class/power_supply/bms/voltage_ocv
+    chown root system /sys/class/power_supply/battery/current_now
+    chown root system /sys/class/power_supply/battery/voltage_ocv
+    chmod 0664 /sys/class/power_supply/bms/current_now
+    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
+    chmod 0664 /sys/class/power_supply/battery/current_now
+    chmod 0664 /sys/class/power_supply/battery/voltage_ocv
+    start vm_bms
 
 on early-boot
     # Set RLIMIT_MEMLOCK to 64MB
