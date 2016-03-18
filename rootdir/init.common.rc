@@ -154,8 +154,6 @@ on charger
     # Booting modem
     wait /dev/block/platform/soc.0/by-name/system
     mount ext4 /dev/block/platform/soc.0/by-name/system /system ro barrier=1
-    start rmt_storage
-    start irsc_util
 
 on early-boot
     # Set RLIMIT_MEMLOCK to 64MB
@@ -296,6 +294,17 @@ service mlog_qmi_service /system/vendor/bin/mlog_qmi_service
 service rmt_storage /system/vendor/bin/rmt_storage
     class core
     user root
+
+on property:ro.boot.emmc=true
+    start rmt_storage
+
+service rfs_access /system/vendor/bin/rfs_access
+   class core
+   user system
+   group system net_raw
+
+on property:ro.boot.emmc=true
+    start rfs_access
 
 # DSDS second ril
 service ril-daemon2 /system/bin/rild -c 2
