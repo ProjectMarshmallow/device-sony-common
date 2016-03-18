@@ -312,12 +312,13 @@ service qmuxd /system/vendor/bin/qmuxd
     class main
     user root
     group radio audio bluetooth gps diag
-    disabled
 
 # QCOM prop
 service netmgrd /system/vendor/bin/netmgrd
     class main
-    disabled
+
+on property:ro.use_data_netmgrd=false
+    stop netmgrd
 
 # QCOM prop
 service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
@@ -400,10 +401,6 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 -t 4 -d /mnt/med
 on property:ro.boot.baseband=apq
     setprop ro.radio.noril yes
     stop ril-daemon
-
-on property:ro.boot.baseband=msm
-    start qmuxd
-    start netmgrd
 
 on property:persist.radio.multisim.config=dsds
     start ril-daemon2
