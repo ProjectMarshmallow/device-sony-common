@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+PRODUCT_VENDOR_KERNEL_HEADERS := device/sony/common/kernel-headers
+
 TARGET_NO_RADIOIMAGE := true
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RECOVERY := false
@@ -34,6 +36,9 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 BOARD_EGL_CFG := device/sony/common/rootdir/system/lib/egl/egl.cfg
+
+# Crypto
+TARGET_HW_DISK_ENCRYPTION := true
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -78,6 +83,9 @@ ifneq ($(QCPATH),)
 BOARD_USES_QCNE := true
 endif
 BOARD_USES_QCOM_HARDWARE := true
+
+# RIL
+TARGET_RIL_VARIANT := caf
 
 # Include build helpers for QCOM proprietary
 -include vendor/qcom/proprietary/common/build/proprietary-build.mk
