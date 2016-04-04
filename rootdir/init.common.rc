@@ -169,6 +169,18 @@ on early-boot
     setrlimit 8 67108864 67108864
 
 on boot
+    # Allow led enabling
+    chown system system /sys/class/leds/R/brightness
+    chown root system /sys/class/leds/R/max_brightness
+    chown system system /sys/class/leds/G/brightness
+    chown root system /sys/class/leds/G/max_brightness
+    chown system system /sys/class/leds/B/brightness
+    chown root system /sys/class/leds/B/max_brightness
+
+    # Display perms
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    chown system system /sys/class/leds/lcd-backlight/max_brightness
+    
     # Bluetooth modules
     chown system system /sys/module/bluetooth/parameters/disable_ertm
     chown system system /sys/module/bluetooth/parameters/disable_esco
@@ -366,6 +378,24 @@ service thermanager /system/bin/thermanager /system/etc/thermanager.xml
 service charger /sbin/charger
     class charger
 
+service usb_uicc_enable /system/bin/sh /system/etc/init.qcom.uicc.sh
+    class late_start
+    user root
+    disabled
+    oneshot
+
+service usb_uicc_daemon /system/bin/usb_uicc_client
+    class main
+    user system
+    group system log net_raw
+    oneshot
+
+on property:sys.usb_uicc.enabled=1
+    start usb_uicc_enable
+
+on property:sys.usb_uicc.enabled=0
+    start usb_uicc_enable
+
 # OSS time
 service timekeep /system/bin/timekeep restore
     class late_start
@@ -407,6 +437,14 @@ service sdcard /system/bin/sdcard -u 1023 -g 1023 -t 4 -l /data/media /mnt/shell
     class late_start
 
 service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -t 4 -d /mnt/media_rw/sdcard1 /storage/sdcard1
+    class late_start
+    disabled
+
+service fuse_uicc0 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/uicc0 /storage/uicc0
+    class late_start
+    disabled
+
+service fuse_uicc1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/uicc1 /storage/uicc1
     class late_start
     disabled
 
