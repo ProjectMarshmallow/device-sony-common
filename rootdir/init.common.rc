@@ -177,9 +177,13 @@ on boot
     chown system system /sys/class/leds/B/brightness
     chown root system /sys/class/leds/B/max_brightness
 
-    # Display perms
-    chown system system /sys/class/leds/lcd-backlight/brightness
-    chown system system /sys/class/leds/lcd-backlight/max_brightness
+    # Proximity and Lights sensors
+    chown system system /dev/proximity
+    chown system system /sys/class/capella_sensors/proximity/ps_adc
+    chown system system /sys/class/capella_sensors/proximity/ps_thd
+    chown system system /sys/class/capella_sensors/proximity/ps_conf
+    chown system system /sys/class/capella_sensors/lightsensor/ls_ir_ink
+    chmod 0600 /dev/proximity
     
     # Bluetooth modules
     chown system system /sys/module/bluetooth/parameters/disable_ertm
@@ -362,6 +366,13 @@ service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     user camera
     group camera system inet input graphics
 
+# Allow usb charging to be disabled peristently
+on property:persist.usb.chgdisabled=1
+    write /sys/class/power_supply/battery/charging_enabled 0
+
+on property:persist.usb.chgdisabled=0
+    write /sys/class/power_supply/battery/charging_enabled 1
+
 # QCOM Secure
 service qseecomd /system/vendor/bin/qseecomd
     class core
@@ -374,9 +385,10 @@ service thermanager /system/bin/thermanager /system/etc/thermanager.xml
     user root
     group root
 
-# Offline charger
-service charger /sbin/charger
+service charger /charger
     class charger
+    group log
+    seclabel u:r:healthd:s0
 
 service usb_uicc_enable /system/bin/sh /system/etc/init.qcom.uicc.sh
     class late_start
@@ -395,6 +407,12 @@ on property:sys.usb_uicc.enabled=1
 
 on property:sys.usb_uicc.enabled=0
     start usb_uicc_enable
+
+on property:sys.psensor.skip_event=0
+    write /sys/class/capella_sensors/proximity/ps_skip_event 0
+
+on property:sys.psensor.skip_event=1
+    write /sys/class/capella_sensors/proximity/ps_skip_event 1
 
 # OSS time
 service timekeep /system/bin/timekeep restore
@@ -478,5 +496,4 @@ service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqb
     class core
     user root
     group root
-    disabled
 

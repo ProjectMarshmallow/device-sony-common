@@ -38,3 +38,9 @@
 /data/etc/bluetooth_bdaddr                              u:object_r:addrsetup_data_file:s0
 /sys/devices/bluesleep.89/rfkill/rfkill0/state          u:object_r:sysfs_bluetooth_writable:s0
 
+# Sysfs
+/sys/devices/virtual/capella_sensors/proximity/ps_adc               u:object_r:sysfs_sensor:s0
+/sys/devices/virtual/capella_sensors/proximity/ps_conf              u:object_r:sysfs_sensor:s0
+/sys/devices/virtual/capella_sensors/proximity/ps_thd               u:object_r:sysfs_sensor:s0
+
+
