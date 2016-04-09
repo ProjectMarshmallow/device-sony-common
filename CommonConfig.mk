@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+BOARD_VENDOR := sony
 PRODUCT_VENDOR_KERNEL_HEADERS := device/sony/common/kernel-headers
 
 TARGET_NO_RADIOIMAGE := true
@@ -20,8 +21,27 @@ TARGET_NO_RECOVERY := false
 TARGET_NO_KERNEL := false
 
 # common cmdline parameters
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
-BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x237 ehci-hcd.park=3
+BOARD_KERNEL_CMDLINE += user_debug=31 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x3F ehci-hcd.park=3
+BOARD_KERNEL_CMDLINE += dwc3.maximum_speed=high dwc3_msm.prop_chg_detect=Y
+BOARD_KERNEL_CMDLINE += coherent_pool=8M
+
+BUILD_KERNEL := true
+BUILD_AOSP := false
+ifeq ($(BUILD_AOSP),true)
+TARGET_KERNEL_CONFIG := aosp_kanuti_tulip_defconfig
+TARGET_KERNEL_SOURCE := kernel/sony/kernel-aosp-2
+else
+TARGET_KERNEL_CONFIG := proj_fxn_defconfig
+TARGET_KERNEL_SOURCE := kernel/sony/kernel-copyleft
+endif
+
+BOARD_KERNEL_BOOTIMG := true
+BOARD_CUSTOM_BOOTIMG := true
+BOARD_KERNEL_SEPARATED_DT := true
+BOARD_CUSTOM_BOOTIMG_MK := device/sony/common/boot/custombootimg.mk
+TARGET_DTB_EXTRA_FLAGS := --force-v2
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -30,21 +50,17 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 USE_OPENGL_RENDERER := true
 TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
-
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+TARGET_CONTINUOUS_SPLASH_ENABLED := true
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-BOARD_EGL_CFG := device/sony/common/rootdir/system/lib/egl/egl.cfg
-
-# Crypto
-TARGET_HW_DISK_ENCRYPTION := true
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 
-# Camera
+#Camera
 TARGET_USES_AOSP := true
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 BOARD_QTI_CAMERA_V2 := true
@@ -53,9 +69,6 @@ BOARD_QTI_CAMERA_V2 := true
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
 TARGET_NO_RPC := true
-
-# Malloc
-MALLOC_IMPL := dlmalloc
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
@@ -72,20 +85,6 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 
-BOARD_CHARGER_DISABLE_INIT_BLANK := true
-BOARD_HEALTHD_CUSTOM_CHARGER_RES := device/sony/sony_common/animations
-
-include device/sony/sony_common/BoardConfigCommon.mk
-
-# Qualcomm support
-BOARD_USES_QC_TIME_SERVICES := true
-ifneq ($(QCPATH),)
-BOARD_USES_QCNE := true
-endif
-BOARD_USES_QCOM_HARDWARE := true
-
-# RIL
-TARGET_RIL_VARIANT := caf
 
 # Include build helpers for QCOM proprietary
 -include vendor/qcom/proprietary/common/build/proprietary-build.mk
@@ -94,27 +93,3 @@ TARGET_RIL_VARIANT := caf
 include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += device/sony/common/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    addrsetup.te \
-    bluetooth.te \
-    device.te \
-    file.te \
-    installd.te \
-    tfa_amp.te \
-    property.te \
-    sct.te \
-    sensors.te \
-    service.te \
-    mediaserver.te \
-    mlog_qmi.te \
-    system_app.te \
-    tad.te \
-    ta_qmi.te \
-    thermanager.te \
-    timekeep.te \
-    wpa.te \
-    file_contexts \
-    genfs_contexts \
-    property_contexts \
-    service_contexts

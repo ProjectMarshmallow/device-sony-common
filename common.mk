@@ -37,7 +37,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
-    frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml
+    frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+    frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
+    frameworks/native/data/etc/android.software.app_widgets.xml:system/etc/permissions/android.software.app_widgets.xml \
+    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml 
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -51,26 +54,20 @@ PRODUCT_COPY_FILES += \
 
 # Common etc
 PRODUCT_COPY_FILES += \
-    device/sony/common/rootdir/system/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     device/sony/common/rootdir/system/etc/gps.conf:system/etc/gps.conf \
     device/sony/common/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
     device/sony/common/rootdir/system/etc/sec_config:system/etc/sec_config \
     device/sony/common/rootdir/system/etc/sensors_settings:system/etc/sensors_settings
 
-#Audio
+
+# Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    audio.primary.msm8916 \
     audio.r_submix.default \
     audio.usb.default \
-    libaudio-resampler \
-    libacdbloader \
-    libacdbmapper \
-    libaudcal \
-    libaudioalsa \
-    libdiag
+    libaudio-resampler
 
-# for audio.primary.msm8916
+# For audio.primary
 PRODUCT_PACKAGES += \
     libtinyalsa \
     libtinycompress \
@@ -90,26 +87,19 @@ PRODUCT_PACKAGES += \
     libqdutils \
     libqdMetaData
 
-#OMX
+# OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
-    libdashplayer \
-    libdivxdrmdecrypt \
     libstagefrighthw \
     libOmxCore \
     libmm-omxcore \
     libOmxVdec \
     libOmxVdecHevc \
-    libOmxAacEnc \
-    libOmxAmrEnc \
-    libOmxEvrcEnc \
-    libOmxQcelp13Enc \
     libOmxVenc
 
 # GPS
 PRODUCT_PACKAGES += \
     libloc_api_v02 \
-    libloc_adapter \
     libloc_core \
     libloc_eng \
     libgps.utils
@@ -140,10 +130,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
    librmnetctl
 
-# Power
-PRODUCT_PACKAGES += \
-   power.tulip
-
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
@@ -160,8 +146,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libemoji
 
+# dtbtool
+PRODUCT_PACKAGES += \
+    dtbTool
+
+# Recovery keycheck
+PRODUCT_PACKAGES += \
+    keycheck
+
 # APN list
 PRODUCT_COPY_FILES += \
+    device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
     device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
 
 # Limit dex2oat threads to improve thermals
@@ -170,11 +165,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.image-dex2oat-threads=4
 
 # Platform specific default properties
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp,adb
-
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.qmi.adb_logmask=0
+
+# ADBoverWIFI
+PRODUCT_PROPERTY_OVERRIDES += \
+    service.adb.tcp.port=5555
+
+# Enable MultiWindow
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.debug.multi_window=true
 
 # Default to LTE/GSM/WCDMA.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -250,8 +250,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.bt.bdaddr_path=/data/etc/bluetooth_bdaddr
 
 # System prop for NFC DT
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.nfc.port=I2C
+#PRODUCT_PROPERTY_OVERRIDES += \
+#    ro.nfc.port=I2C
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -262,6 +262,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Sensors
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qti.sensors.dpc=true
+
+# Platform specific default properties
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=mtp
 
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \

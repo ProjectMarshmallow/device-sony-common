@@ -414,3 +414,4 @@ struct hw_module_t HAL_MODULE_INFO_SYM = {
 	.author = "Bjorn Andersson <bjorn.andersson@sonymobile.com>",
 	.methods = &lights_module_methods,
 };
+
