@@ -38,6 +38,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+    frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.google.android.nfc_extras.xml \
     frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
     frameworks/native/data/etc/android.software.app_widgets.xml:system/etc/permissions/android.software.app_widgets.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml 
@@ -119,6 +120,17 @@ PRODUCT_PACKAGES += \
     libmmjpeg_interface \
     libmm-qcamera \
     libqomx_core
+
+# NFC
+#PRODUCT_PACKAGES += \
+#    nfc.qcom
+
+#PRODUCT_PACKAGES += \
+#    libnfc \
+#    libnfc_jni \
+#    Nfc \
+#    Tag \
+#    com.android.nfc_extras
 
 # OSS
 PRODUCT_PACKAGES += \
