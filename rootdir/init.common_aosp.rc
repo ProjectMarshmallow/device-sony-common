@@ -116,13 +116,10 @@ on post-fs-data
     mkdir /data/etc 0775
     mkdir /data/system 0775 system system
 
-    #Create directories for Location services
+    # Create directories for Location services
     mkdir /data/misc/location 0770 gps gps
     mkdir /data/misc/location/mq 0770 gps gps
     mkdir /data/misc/location/xtwifi 0770 gps gps
-    mkdir /data/misc/location/gpsone_d 0770 system gps
-    mkdir /data/misc/location/quipc 0770 gps system
-    mkdir /data/misc/location/gsiff 0770 gps gps
 
     # Create directory from IMS services
     mkdir /data/shared 0755
@@ -173,12 +170,12 @@ on early-boot
 
 on boot
     # Allow led enabling
-    chown system system /sys/class/leds/R/brightness
-    chown root system /sys/class/leds/R/max_brightness
-    chown system system /sys/class/leds/G/brightness
-    chown root system /sys/class/leds/G/max_brightness
-    chown system system /sys/class/leds/B/brightness
-    chown root system /sys/class/leds/B/max_brightness
+    chown system system /sys/class/leds/led:rgb_red/brightness
+    chown root system /sys/class/leds/led:rgb_red/max_brightness
+    chown system system /sys/class/leds/led:rgb_green/brightness
+    chown root system /sys/class/leds/led:rgb_green/max_brightness
+    chown system system /sys/class/leds/led:rgb_blue/brightness
+    chown root system /sys/class/leds/led:rgb_blue/max_brightness
 
     # Proximity and Lights sensors
     chown system system /dev/proximity
