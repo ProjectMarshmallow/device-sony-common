@@ -1,6 +1,10 @@
 # Trim Area daemon
 /dev/socket/tad                               u:object_r:tad_socket:s0
 
+# Front Sensors
+/dev/lightsensor                              u:object_r:lightsensor_device:s0
+/dev/proximity                                u:object_r:proximity_device:s0
+
 # NFC
 /dev/pn54x                                    u:object_r:nfc_device:s0
 
@@ -53,4 +57,9 @@
 /proc/bluetooth/sleep/btwrite                           u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/soc.0/bluesleep.81/rfkill/rfkill0/state    u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/bluesleep.89/rfkill/rfkill0/state          u:object_r:sysfs_bluetooth_writable:s0
+
+# Sensors
+/sys/devices/virtual/capella_sensors/proximity/ps_adc               u:object_r:sysfs_sensor:s0
+/sys/devices/virtual/capella_sensors/proximity/ps_conf              u:object_r:sysfs_sensor:s0
+/sys/devices/virtual/capella_sensors/proximity/ps_thd               u:object_r:sysfs_sensor:s0
 

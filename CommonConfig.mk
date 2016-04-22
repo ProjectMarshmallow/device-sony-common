@@ -32,7 +32,7 @@ ifeq ($(BUILD_AOSP),true)
 TARGET_KERNEL_CONFIG := aosp_kanuti_tulip_defconfig
 TARGET_KERNEL_SOURCE := kernel/sony/kernel-aosp-2
 else
-TARGET_KERNEL_CONFIG := proj_fxn_defconfig
+TARGET_KERNEL_CONFIG := proj_fxn_user_defconfig
 TARGET_KERNEL_SOURCE := kernel/sony/kernel-copyleft
 endif
 

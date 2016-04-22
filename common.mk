@@ -37,6 +37,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.google.android.nfc_extras.xml \
     frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
@@ -55,10 +56,9 @@ PRODUCT_COPY_FILES += \
 
 # Common etc
 PRODUCT_COPY_FILES += \
-    device/sony/common/rootdir/system/etc/gps.conf:system/etc/gps.conf \
     device/sony/common/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
     device/sony/common/rootdir/system/etc/sec_config:system/etc/sec_config \
-    device/sony/common/rootdir/system/etc/sensors_settings:system/etc/sensors_settings
+    device/sony/common/rootdir/system/etc/sensors/sensors_settings:system/etc/sensors/sensors_settings
 
 
 # Audio
@@ -124,13 +124,6 @@ PRODUCT_PACKAGES += \
 # NFC
 #PRODUCT_PACKAGES += \
 #    nfc.qcom
-
-#PRODUCT_PACKAGES += \
-#    libnfc \
-#    libnfc_jni \
-#    Nfc \
-#    Tag \
-#    com.android.nfc_extras
 
 # OSS
 PRODUCT_PACKAGES += \
@@ -262,8 +255,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.bt.bdaddr_path=/data/etc/bluetooth_bdaddr
 
 # System prop for NFC DT
-#PRODUCT_PROPERTY_OVERRIDES += \
-#    ro.nfc.port=I2C
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.nfc.port=I2C
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -285,3 +278,17 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.qualcomm.sns.daemon=0 \
     debug.qualcomm.sns.hal=0 \
     debug.qualcomm.sns.libsensor1=0
+
+# GPS
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.gps.qc_nlp_in_use=1 \
+    persist.loc.nlp_name=com.qualcomm.location \
+    ro.gps.agps_provider=1 \
+    ro.pip.gated=0
+
+# GPS
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.nfc.smartcard.config=SIM1,SIM2,eSE1 \
+    ro.nfc.routing.default=HOST \
+    ro.nfc.on.default=true \
+    ro.nfc.se.sim.enable=true
